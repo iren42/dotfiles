@@ -1,8 +1,15 @@
 " Show colors"
 syntax on
 
-" Display line number"
+" Display line number for the current line"
 set number
+
+" Display relative number"
+set relativenumber
+
+" Display a column at 80 char"
+set cc=80
+highlight ColorColumn ctermbg=0
 
 " Allow mouse"
 set mouse=a
