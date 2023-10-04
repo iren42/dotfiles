@@ -1,6 +1,7 @@
 " Show colors"
 syntax on
 
+" h setting-tabline
 " Display line number for the current line"
 set number
 
@@ -10,6 +11,9 @@ set relativenumber
 " Display a column at 80 char"
 set cc=80
 highlight ColorColumn ctermbg=0
+
+" Highlight all search matches"
+set hlsearch
 
 " Allow mouse"
 set mouse=a
@@ -41,3 +45,6 @@ set showcmd
 " Then you can just type the buffer number, or part of the filename,"
 " and hit Enter."
 nnoremap <Leader>b :ls<CR>:b<Space>
+
+" ESC key in insert mode remapped to kj"
+inoremap kj <esc>
