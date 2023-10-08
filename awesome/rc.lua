@@ -61,6 +61,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 terminal = "terminator"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+home = os.getenv("HOME")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -272,6 +273,7 @@ root.buttons(gears.table.join(
 ))
 -- }}}
 
+
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -385,15 +387,17 @@ globalkeys = gears.table.join(
 	awful.key({ }, "XF86AudioLowerVolume", function() volume_widget:dec(5) end),
 	awful.key({ }, "XF86AudioMute", function() volume_widget:toggle() end),
 	-- Brightness
-	awful.key({ }, "XF86MonBrightnessUp", function () brightness_widget:inc() end, 
-			{description = "increase brightness", group = "custom"}),
-	awful.key({ }, "XF86MonBrightnessDown", function () brightness_widget:dec() end, 
-			{description = "decrease brightness", group = "custom"}),
+	awful.key({ }, "XF86MonBrightnessUp", function () brightness_widget:inc() end),
+	awful.key({ }, "XF86MonBrightnessDown", function () brightness_widget:dec() end),
+	
 	-- Toggle microphone state
 	awful.key({ }, "XF86AudioMicMute",
-          function () beautiful.mic:toggle() end,
-          {description = "Toggle microphone (amixer)", group = "custom"}
-	)
+          function () beautiful.mic:toggle() end),
+
+	-- Print Screen
+	awful.key({}, "Print", function ()
+   		awful.util.spawn("xfce4-screenshooter --fullscreen -s " ..  home .. "/Pictures/Screenshots", false)
+    	end)
 )
 
 clientkeys = gears.table.join(
