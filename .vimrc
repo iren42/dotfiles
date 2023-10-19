@@ -57,9 +57,10 @@ set showcmd
 
 " Faster way to switch between buffers"
 " \b will list the available buffers and prepare :b for you"
-" Then you can just type the buffer number, or part of the filename,"
-" and hit Enter."
 nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>` :buffer #<cr>
+noremap <Tab> :bn<Return>
+noremap <S-Tab> :bp<Return>
 
 " ESC key in insert mode remapped to kj"
 inoremap kj <esc>
