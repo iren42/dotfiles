@@ -1,6 +1,15 @@
 " Show colors"
 syntax on
 
+" NerdTree-like netrw :Vex"
+let g:netrw_banner=0 "hide big banner"
+let g:netrw_liststyle=3 "tree view"
+let g:netrw_browse_split=4 "open the file in the previous window"
+let g:netrw_altv=1 "open the file the right"
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide=&wildignore
+let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
+
 " Display line number for the current line"
 set number
 " Display relative number"
@@ -31,7 +40,7 @@ augroup END
 set gp=git\ grep\ -n
 
 " Allow mouse"
-set mouse=a
+set mouse-=a
 
 " Indentation style"
 set smartindent
@@ -59,8 +68,8 @@ set showcmd
 " \b will list the available buffers and prepare :b for you"
 nnoremap <Leader>b :ls<CR>:b<Space>
 nnoremap <Leader>` :buffer #<cr>
-noremap <Tab> :bn<Return>
-noremap <S-Tab> :bp<Return>
+nnoremap <Tab> :bn<Return>
+nnoremap <S-Tab> :bp<Return>
 
 " ESC key in insert mode remapped to kj"
 inoremap kj <esc>
