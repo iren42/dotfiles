@@ -1,18 +1,34 @@
 " Show colors"
 syntax on
 
-" h setting-tabline
 " Display line number for the current line"
 set number
 " Display relative number"
 set relativenumber
-
+" Display ruler"
+set ruler
 " Display a column at 80 char"
 set cc=80
 highlight ColorColumn ctermbg=0
 
 " Highlight all search matches"
 set hlsearch
+
+" Hide the statusline"
+set laststatus=0
+
+" More visibility"
+set cursorline
+
+" Cursorline only on active pane"
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+augroup END
+
+" Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
+set gp=git\ grep\ -n
 
 " Allow mouse"
 set mouse=a
@@ -24,12 +40,8 @@ set tabstop=4
 " Indentation corresponds to a single tab, should be equal to tabstop"
 set shiftwidth=4
 
-" Display ruler"
-set ruler
-
 " To open buffers without saving the current file"
 set hidden
-
 " No swap files allowed"
 set noswapfile
 
@@ -80,5 +92,3 @@ nnoremap <C-w>m :tab split<CR>
 " Resize all windows to default size"
 nnoremap <C-w>n <C-w>=
 
-" Change statusline's color to red"
-hi StatusLine   ctermfg=white  guifg=white ctermbg=red guibg=red cterm=bold gui=bold
