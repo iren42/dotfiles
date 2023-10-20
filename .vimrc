@@ -91,14 +91,14 @@ nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 nnoremap sj <C-w>j
 " Resize window"
-nnoremap <C-w><Left> <C-w><
-nnoremap <C-w><Right> <C-w>>
-nnoremap <C-w><Up> <C-w>+
-nnoremap <C-w><Down> <C-w>-
+nnoremap s<Left> <C-w><
+nnoremap s<Right> <C-w>>
+nnoremap s<Up> <C-w>+
+nnoremap s<Down> <C-w>-
 
 " Maximize window in a new tab"
-nnoremap <C-w>m :tab split<CR>
+nnoremap sm :tab split<CR>
 
 " Resize all windows to default size"
-nnoremap <C-w>n <C-w>=
+nnoremap sn <C-w>=
 
