@@ -40,7 +40,7 @@ augroup END
 set gp=git\ grep\ -n
 
 " Allow mouse"
-set mouse-=a
+set mouse=a
 
 " Indentation style"
 set smartindent
@@ -98,7 +98,4 @@ nnoremap s<Down> <C-w>-
 
 " Maximize window in a new tab"
 nnoremap sm :tab split<CR>
-
-" Resize all windows to default size"
-nnoremap sn <C-w>=
 
