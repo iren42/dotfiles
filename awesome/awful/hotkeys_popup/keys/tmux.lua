@@ -50,7 +50,7 @@ local tmux_keys = {
             n         = "create window",
             f         = "find window",
             [',']     = "rename current window",
-            c		  = "close current window",
+            x		  = "kill current window",
             ['Left']  = "previous window",
             ['Right'] = "next window",
             ['0...9'] = "select window by number"
@@ -70,7 +70,7 @@ local tmux_keys = {
             m           = "(un)maximize the current pane",
             ['space']   = "toggle between layouts",
             ['!']       = "convert pane into a window",
-            x           = "close current pane"
+            ['c']       = "close current pane"
         }
     }},
 
