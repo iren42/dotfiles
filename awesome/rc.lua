@@ -25,7 +25,7 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 -- Custom widgets from awesome-wm-widgets
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+-- local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 -- {{{ Error handling
@@ -267,13 +267,13 @@ awful.screen.connect_for_each_screen(function(s)
 
 			-- Custom widgets
 			--			widget_mic, does not work
-			brightness_widget({
-				type = "icon_and_text",
-				program = "light",
-				percentage = true,
-				rmb_set_max = true,
-				base = 50,
-			}),
+--			brightness_widget({
+--				type = "icon_and_text",
+--				program = "light",
+--				percentage = true,
+--				rmb_set_max = true,
+--				base = 50,
+--			}),
 			volume_widget(),
 			battery_widget({
 				show_current_level = true,
@@ -383,8 +383,8 @@ globalkeys = gears.table.join(
 
 	-- Firefox
 	awful.key({ modkey }, "b", function()
-		awful.util.spawn("firefox")
-	end, { description = "open firefox", group = "applications" }),
+		awful.util.spawn("brave-browser")
+	end, { description = "open brave", group = "applications" }),
 
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
@@ -412,12 +412,18 @@ globalkeys = gears.table.join(
 	end),
 
 	-- Brightness
-	awful.key({}, "XF86MonBrightnessUp", function()
-		brightness_widget:inc()
+	awful.key({ }, "XF86MonBrightnessUp", function()
+		awful.spawn.with_shell("light -A 5")
 	end),
-	awful.key({}, "XF86MonBrightnessDown", function()
-		brightness_widget:dec()
+	awful.key({ }, "XF86MonBrightnessDown", function()
+		awful.spawn.with_shell("light -U 5")
 	end),
+--	awful.key({}, "XF86MonBrightnessUp", function()
+--		brightness_widget:inc()
+--	end),
+--	awful.key({}, "XF86MonBrightnessDown", function()
+--		brightness_widget:dec()
+--	end),
 
 	-- Toggle microphone state
 	awful.key({}, "XF86AudioMicMute", function()
