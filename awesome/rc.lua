@@ -26,7 +26,7 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 -- local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
+-- local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -64,8 +64,8 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
-editor = os.getenv("EDITOR") or "nvim"
+terminal = "gnome-terminal"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 home = os.getenv("HOME")
 
@@ -413,10 +413,10 @@ globalkeys = gears.table.join(
 
 	-- Brightness
 	awful.key({ }, "XF86MonBrightnessUp", function()
-		awful.spawn.with_shell("light -A 5")
+		awful.spawn.with_shell("brightnessctl set +5%")
 	end),
 	awful.key({ }, "XF86MonBrightnessDown", function()
-		awful.spawn.with_shell("light -U 5")
+		awful.spawn.with_shell("brightnessctl set 5%-")
 	end),
 --	awful.key({}, "XF86MonBrightnessUp", function()
 --		brightness_widget:inc()
@@ -463,7 +463,7 @@ clientkeys = gears.table.join(
 		c.fullscreen = not c.fullscreen
 		c:raise()
 	end, { description = "toggle fullscreen", group = "client" }),
-	awful.key({ modkey, "Shift" }, "c", function(c)
+	awful.key({ modkey }, "c", function(c)
 		c:kill()
 	end, { description = "close", group = "client" }),
 	awful.key(
