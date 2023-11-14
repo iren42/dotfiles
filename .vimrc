@@ -22,6 +22,10 @@ highlight ColorColumn ctermbg=0
 
 " Highlight all search matches"
 set hlsearch
+" Smart case-insensitive, if one character or more is in UPPER CASE"
+" search becomes case sensitive"
+set ignorecase
+set smartcase
 
 " Hide the statusline"
 set laststatus=0
@@ -43,7 +47,7 @@ set gp=git\ grep\ -n
 set mouse=a
 
 " Indentation style"
-set smartindent
+set cindent
 " Tabulation is only 4 spaces wide"
 set tabstop=4
 " Indentation corresponds to a single tab, should be equal to tabstop"
@@ -70,6 +74,7 @@ nnoremap <Leader>b :ls<CR>:b<Space>
 nnoremap <Leader>` :buffer #<cr>
 nnoremap <Tab> :bn<Return>
 nnoremap <S-Tab> :bp<Return>
+nnoremap te :tabedit<Space>
 
 " ESC key in insert mode remapped to kj"
 inoremap kj <esc>
