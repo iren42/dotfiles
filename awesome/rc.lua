@@ -25,8 +25,19 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 -- Custom widgets from awesome-wm-widgets
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
--- local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
--- local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
+
+-- Function to print stats related to RAM
+local function print_awesome_memory_stats(message)
+    print(os.date(), "\nLua memory usage:", collectgarbage("count"))
+    out_string = tostring(os.date()) .. "\nLua memory usage:"..tostring(collectgarbage("count")).."\n"
+    out_string = out_string .. "Objects alive:"
+    print("Objects alive:")
+    for name, obj in pairs{ button = button, client = client, drawable = drawable, drawin = drawin, key = key, screen = screen, tag = tag } do
+        out_string =out_string .. "\n" .. tostring(name) .. " = " ..tostring(obj.instances())
+        print(name, obj.instances())
+    end
+    naughty.notify({title = "Awesome WM memory statistics " .. message, text = out_string, timeout=20,hover_timeout=20})
+end
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -64,7 +75,7 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "st"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 home = os.getenv("HOME")
@@ -267,13 +278,6 @@ awful.screen.connect_for_each_screen(function(s)
 
 			-- Custom widgets
 			--			widget_mic, does not work
---			brightness_widget({
---				type = "icon_and_text",
---				program = "light",
---				percentage = true,
---				rmb_set_max = true,
---				base = 50,
---			}),
 			volume_widget(),
 			battery_widget({
 				show_current_level = true,
@@ -378,12 +382,12 @@ globalkeys = gears.table.join(
 
 	-- Prompt Dmenu
 	awful.key({ modkey }, "r", function()
-		awful.util.spawn("dmenu_run")
+		awful.spawn("dmenu_run")
 	end, { description = "run prompt", group = "launcher" }),
 
 	-- Firefox
 	awful.key({ modkey }, "b", function()
-		awful.util.spawn("brave-browser")
+		awful.spawn("brave-browser")
 	end, { description = "open brave", group = "applications" }),
 
 	awful.key({ modkey }, "x", function()
@@ -418,12 +422,6 @@ globalkeys = gears.table.join(
 	awful.key({ }, "XF86MonBrightnessDown", function()
 		awful.spawn.with_shell("brightnessctl set 5%-")
 	end),
---	awful.key({}, "XF86MonBrightnessUp", function()
---		brightness_widget:inc()
---	end),
---	awful.key({}, "XF86MonBrightnessDown", function()
---		brightness_widget:dec()
---	end),
 
 	-- Toggle microphone state
 	awful.key({}, "XF86AudioMicMute", function()
@@ -432,28 +430,39 @@ globalkeys = gears.table.join(
 
 	-- Print Screen
 	awful.key({}, "Print", function()
-		awful.util.spawn("xfce4-screenshooter --fullscreen -s " .. home .. "/Pictures/Screenshots", false)
+		awful.spawn("gnome-screenshot")
 	end),
 
 	-- Lock screen
 	awful.key({}, "F9", function()
-		awful.util.spawn("i3lock --color 1d2021 --show-failed-attempts")
+		awful.spawn.with_shell("i3lock --color 1d2021 --show-failed-attempts")
 	end, { description = "lock screen", group = "connexion" }),
 
 	-- Suspend
 	awful.key({}, "F10", function()
-		awful.util.spawn("systemctl suspend")
+		awful.spawn("systemctl suspend")
 	end, { description = "suspend", group = "connexion" }),
 
 	-- Reboot
 	awful.key({}, "F11", function()
-		awful.util.spawn("systemctl reboot")
+		awful.spawn("systemctl reboot")
 	end, { description = "reboot", group = "connexion" }),
 
 	-- Shutdown
 	awful.key({}, "F12", function()
-		awful.util.spawn("systemctl poweroff")
-	end, { description = "shutdown", group = "connexion" })
+		awful.spawn("systemctl poweroff")
+	end, { description = "shutdown", group = "connexion" }),
+
+	-- show stats before and after garbage collection
+	awful.key({modkey,"Control" }, "s", function()
+    	print_awesome_memory_stats("Precollect")
+	    collectgarbage("collect")
+	    collectgarbage("collect")
+	    gears.timer.start_new(20, function()
+	        print_awesome_memory_stats("Postcollect")
+	        return false
+	    end)
+	end, {description = "print awesome wm memory statistics", group="awesome"})
 
 	-- End of custom widgets
 )
@@ -695,4 +704,4 @@ end)
 awful.spawn.with_shell("~/.config/awesome/autorun.sh")
 
 -- Network Manager
--- awful.util.spawn("nm-applet")
+-- awful.spawn("nm-applet")
