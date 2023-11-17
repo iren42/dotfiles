@@ -85,9 +85,9 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
 " Automatically insert a closing bracket"
-inoremap ( ()<Left>
-inoremap [ []<Left>
-inoremap { {}<Left><CR><CR><Up>
+" inoremap ( ()<Left>"
+" inoremap [ []<Left>"
+" inoremap { {}<Left><CR><CR><Up>"
 
 " Split window"
 nnoremap so :split<Return><C-w>w
