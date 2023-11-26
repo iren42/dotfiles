@@ -136,11 +136,11 @@ __prompt_command() {
 	local BBlu='\[\e[1;34m\]'
 	local Pur='\[\e[0;35m\]'
 	if [ $EXIT != 0 ]; then
-		PS1+="${BBlu}[${Red}\W${RCol}"        # Add red if exit code non 0
+		PS1+="${Red}\u${RCol}"        # Add red if exit code non 0
 	else
-		PS1+="${BBlu}[${Gre}\W${RCol}"
+		PS1+="${Gre}\u${RCol}"
 	fi
 
-	PS1+="${BYel}\$(parse_git_branch)${BBlu}]${RCol}$ "
+	PS1+=" in ${Pur}\w${BBlu}\$(parse_git_branch)${RCol}$ "
 #	PS1+="${RCol}@${BBlu}\h ${Pur}\W${BYel}$ ${RCol}"
 }
