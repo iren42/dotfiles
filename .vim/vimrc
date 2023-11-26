@@ -1,3 +1,4 @@
+" in ~/.vim/vimrc"
 " Show colors"
 syntax on
 
