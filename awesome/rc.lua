@@ -257,7 +257,7 @@ awful.screen.connect_for_each_screen(function(s)
 		buttons = tasklist_buttons,
 	})
 
-	--  local widget_mic = wibox.widget({ beautiful.mic.widget, layout = wibox.layout.align.horizontal })
+	local widget_mic = wibox.widget({ beautiful.mic.widget, layout = wibox.layout.align.horizontal })
 	-- Create the wibox
 	s.mywibox = awful.wibar({ position = "top", screen = s })
 
@@ -277,7 +277,7 @@ awful.screen.connect_for_each_screen(function(s)
 			wibox.widget.systray(),
 
 			-- Custom widgets
-			--			widget_mic, does not work
+						widget_mic,  -- does not work
 			volume_widget(),
 			battery_widget({
 				show_current_level = true,
