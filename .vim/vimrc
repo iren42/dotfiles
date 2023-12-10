@@ -31,15 +31,15 @@ set smartcase
 " Hide the statusline"
 set laststatus=0
 
-" More visibility"
-set cursorline
-
-" Cursorline only on active pane"
-augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-augroup END
+"" More visibility"
+"set cursorline 
+"
+"" Cursorline only on active pane"
+"augroup BgHighlight
+"    autocmd!
+"    autocmd WinEnter * set cursorline
+"    autocmd WinLeave * set nocursorline
+"augroup END
 
 " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
 set gp=git\ grep\ -n
