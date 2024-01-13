@@ -2,6 +2,9 @@
 " Show colors"
 syntax on
 
+" leader key is space"
+map <Space> <Leader>
+
 " NerdTree-like netrw :Vex"
 let g:netrw_banner=0 "hide big banner"
 let g:netrw_liststyle=3 "tree view"
@@ -12,9 +15,7 @@ let g:netrw_list_hide=&wildignore
 let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
 
 " Display line number for the current line"
-set number
-" Display relative number"
-set relativenumber
+set number relativenumber
 " Display ruler"
 set ruler
 " Display a column at 80 char"
@@ -28,18 +29,12 @@ set hlsearch
 set ignorecase
 set smartcase
 
-" Hide the statusline"
-set laststatus=0
+" always show the statusline"
+set laststatus=2
 
-"" More visibility"
-"set cursorline 
-"
-"" Cursorline only on active pane"
-"augroup BgHighlight
-"    autocmd!
-"    autocmd WinEnter * set cursorline
-"    autocmd WinLeave * set nocursorline
-"augroup END
+" make it easier to read code"
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
 
 " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
 set gp=git\ grep\ -n
@@ -53,6 +48,8 @@ set cindent
 set tabstop=4
 " Indentation corresponds to a single tab, should be equal to tabstop"
 set shiftwidth=4
+" spaces instead of tab"
+set expandtab
 
 " To open buffers without saving the current file"
 set hidden
@@ -84,11 +81,6 @@ inoremap kj <esc>
 " Place the cursor to the center of the screen"
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
-
-" Automatically insert a closing bracket"
-" inoremap ( ()<Left>"
-" inoremap [ []<Left>"
-" inoremap { {}<Left><CR><CR><Up>"
 
 " Split window"
 nnoremap so :split<Return><C-w>w
