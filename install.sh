@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # sofware: tmux, brave browser, vim, i3lock, brightnessctl, st
 # download awesome WM
 git clone https://github.com/awesomeWM/awesome.git

@@ -1,4 +1,4 @@
-" in ~/.vim/vimrc"
+" is ~/.vim/vimrc"
 " Show colors"
 syntax on
 
@@ -33,8 +33,8 @@ set smartcase
 set laststatus=2
 
 " make it easier to read code"
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
+"autocmd InsertEnter * :set norelativenumber
+"autocmd InsertLeave * :set relativenumber
 
 " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
 set gp=git\ grep\ -n
@@ -43,13 +43,13 @@ set gp=git\ grep\ -n
 set mouse=a
 
 " Indentation style"
-set cindent
+set autoindent smartindent
 " Tabulation is only 4 spaces wide"
 set tabstop=4
 " Indentation corresponds to a single tab, should be equal to tabstop"
 set shiftwidth=4
 " spaces instead of tab"
-set expandtab
+"set expandtab
 
 " To open buffers without saving the current file"
 set hidden
@@ -70,8 +70,8 @@ set showcmd
 " \b will list the available buffers and prepare :b for you"
 nnoremap <Leader>b :ls<CR>:b<Space>
 nnoremap <Leader>` :buffer #<cr>
-nnoremap <Tab> :bn<Return>
-nnoremap <S-Tab> :bp<Return>
+nnoremap <Leader>n :bn<Return>
+nnoremap <Leader>m :bp<Return>
 nnoremap te :tabedit<Space>
 
 " ESC key in insert mode remapped to kj"
@@ -99,3 +99,6 @@ nnoremap s<Down> <C-w>-
 " Maximize window in a new tab"
 nnoremap sm :tab split<CR>
 
+" :W and :Q behave like :w and :q respectively "
+command! W write
+command! Q quit
