@@ -44,6 +44,7 @@ set mouse=a
 
 " Indentation style"
 set autoindent smartindent
+filetype indent on
 " Tabulation is only 4 spaces wide"
 set tabstop=4
 " Indentation corresponds to a single tab, should be equal to tabstop"
@@ -68,10 +69,10 @@ set showcmd
 
 " Faster way to switch between buffers"
 " \b will list the available buffers and prepare :b for you"
-nnoremap <Leader>b :ls<CR>:b<Space>
-nnoremap <Leader>` :buffer #<cr>
-nnoremap <Leader>n :bn<Return>
-nnoremap <Leader>m :bp<Return>
+map <Leader>b :ls<CR>:b<Space>
+map <Leader>` :buffer #<cr>
+map <Leader>n :bn<Return>
+map <Leader>p :bp<Return>
 nnoremap te :tabedit<Space>
 
 " ESC key in insert mode remapped to kj"
