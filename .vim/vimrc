@@ -103,3 +103,6 @@ nnoremap sm :tab split<CR>
 " :W and :Q behave like :w and :q respectively "
 command! W write
 command! Q quit
+
+" subtitutions made easier"
+nnoremap <leader>s :%s/
