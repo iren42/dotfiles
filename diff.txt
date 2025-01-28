@@ -1,0 +1,220 @@
+diff --git a/.vim/vimrc b/.vim/vimrc
+index 0675b84..ca01981 100644
+--- a/.vim/vimrc
++++ b/.vim/vimrc
+@@ -1,10 +1,19 @@
+ " is ~/.vim/vimrc"
++" Reload vimrc with the vim command :so $(PATH)"
++"
+ " Show colors"
+ syntax on
+ 
++" copy paste on system clipboard"
++" key shortcut is "+y
++set clipboard=unnamedplus
++
+ " leader key is space"
+ map <Space> <Leader>
+ 
++" disable matching bracket highlight"
++" let g:loaded_matchparen=1
++
+ " NerdTree-like netrw :Vex"
+ let g:netrw_banner=0 "hide big banner"
+ let g:netrw_liststyle=3 "tree view"
+@@ -22,8 +31,6 @@ set ruler
+ set cc=80
+ highlight ColorColumn ctermbg=0
+ 
+-" Highlight all search matches"
+-set hlsearch
+ " Smart case-insensitive, if one character or more is in UPPER CASE"
+ " search becomes case sensitive"
+ set ignorecase
+@@ -32,10 +39,6 @@ set smartcase
+ " always show the statusline"
+ set laststatus=2
+ 
+-" make it easier to read code"
+-"autocmd InsertEnter * :set norelativenumber
+-"autocmd InsertLeave * :set relativenumber
+-
+ " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
+ set gp=git\ grep\ -n
+ 
+@@ -46,11 +49,9 @@ set mouse=a
+ set autoindent smartindent
+ filetype indent on
+ " Tabulation is only 4 spaces wide"
+-set tabstop=4
++set tabstop=2
+ " Indentation corresponds to a single tab, should be equal to tabstop"
+-set shiftwidth=4
+-" spaces instead of tab"
+-"set expandtab
++set shiftwidth=2
+ 
+ " To open buffers without saving the current file"
+ set hidden
+@@ -68,34 +69,29 @@ set wildmenu
+ set showcmd
+ 
+ " Faster way to switch between buffers"
+-" \b will list the available buffers and prepare :b for you"
++" leader b will list the available buffers and prepare :b for you"
+ map <Leader>b :ls<CR>:b<Space>
+ map <Leader>` :buffer #<cr>
+-map <Leader>n :bn<Return>
+-map <Leader>p :bp<Return>
+ nnoremap te :tabedit<Space>
+ 
+-" ESC key in insert mode remapped to kj"
+-inoremap kj <esc>
++" From TPA's advanced motions P1, paste register stays unchanged "
++xnoremap <Leader>p "_dP
+ 
+-" Automatically do 'zz' for CTRL + d/u"
++" Automatically do 'zz' for CTRL + d/u and n N"
+ " Place the cursor to the center of the screen"
+ nnoremap <C-d> <C-d>zz
+ nnoremap <C-u> <C-u>zz
++nnoremap n nzzzv
++nnoremap N Nzzzv
+ 
+ " Split window"
+ nnoremap so :split<Return><C-w>w
+ nnoremap se :vsplit<Return><C-w>w
+-" Move between split windows"
+-nnoremap sh <C-w>h
+-nnoremap sk <C-w>k
+-nnoremap sl <C-w>l
+-nnoremap sj <C-w>j
+ " Resize window"
+-nnoremap s<Left> <C-w><
+-nnoremap s<Right> <C-w>>
+-nnoremap s<Up> <C-w>+
+-nnoremap s<Down> <C-w>-
++"nnoremap s<Left> <C-w><
++"nnoremap s<Right> <C-w>>
++"nnoremap s<Up> <C-w>+
++"nnoremap s<Down> <C-w>-
+ 
+ " Maximize window in a new tab"
+ nnoremap sm :tab split<CR>
+@@ -104,5 +100,16 @@ nnoremap sm :tab split<CR>
+ command! W write
+ command! Q quit
+ 
++" Create the tags file (may need to install ctags first)"
++command! MakeTags !ctags -R .
++
+ " subtitutions made easier"
+ nnoremap <leader>s :%s/
++
++" snippets"
++nnoremap ,html :-1read $HOME/.vim/snippets/.skeleton.html<CR>4jf>a
++nnoremap ,lorem :-1read $HOME/.vim/snippets/.lorem.txt<CR>
++
++" Plugins"
++" for tpope's commentary"
++filetype plugin indent on
+diff --git a/tmux/tmux.conf b/tmux/tmux.conf
+index 650660b..9e6d282 100755
+--- a/tmux/tmux.conf
++++ b/tmux/tmux.conf
+@@ -1,17 +1,16 @@
+ # is ~/.config/tmux/tmux.conf
++# ln -sf ~/dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf
+ # default shell is zsh
+ set-option -g default-shell /bin/zsh
+ 
+-# leader key is set to ctrl + s
+-#unbind C-b
+-#set -g prefix C-s
+-#bind C-s send-prefix
+-
+-
+ # leader + r to refresh conf
+ unbind r
+ bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded tmux.conf"
+ 
++# send command to all panes
++unbind s
++bind s set-window-option synchronize-panes
++
+ # expand history
+ set -g history-limit 10000
+ 
+@@ -24,61 +23,18 @@ set -g window-active-style 'fg=colour223, bg=colour234'
+ 
+ # Custom basic status bar
+ wg_prfix=" #{?client_prefix, <Prefix>,}"
+-#wg_time=" %H:%M"
+-#wg_date=" %d-%b-%Y"
+ set -g status-right "${wg_prfix} [#P]"
+ 
+ # act like vim
+-#setw -g mode-keys vi
+-#bind-key h select-pane -L 
+-#bind-key j select-pane -D
+-#bind-key k select-pane -U 
+-#bind-key l select-pane -R 
+-#
+-## act like terminator
+-#unbind o
+-#unbind e
+-#unbind '"'
+-#unbind %
+-#bind-key e split-window -h
+-#bind-key o split-window -v
+-#
+-## act like awesomewm
+-#unbind c
+-#unbind n
+-#unbind p
+-#unbind z
+-#unbind x
+-#bind-key n new-window
+-#bind-key x kill-window
+-#bind-key c kill-pane
+-#bind-key m resize-pane -Z
+-#unbind Left
+-#unbind Right
+-#unbind Up
+-#unbind Down
+-#bind-key Right next-window
+-#bind-key Left previous-window
+-
+-
+-# Smart pane switching with awareness of Vim splits.
+-# See: https://github.com/christoomey/vim-tmux-navigator
+-# git clone git@github.com:christoomey/vim-tmux-navigator.git ~/.vim/pack/plugins/start/vim-tmux-navigator
+-is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf)(diff)?$'"
+-	bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+-	bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+-	bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+-	bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+-	tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+-	if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+-		    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+-			if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+-				    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+-
+-					bind-key -T copy-mode-vi 'C-h' select-pane -L
+-					bind-key -T copy-mode-vi 'C-j' select-pane -D
+-					bind-key -T copy-mode-vi 'C-k' select-pane -U
+-					bind-key -T copy-mode-vi 'C-l' select-pane -R
+-#					bind-key -T copy-mode-vi 'C-\' select-pane -l
++setw -g status-keys vi
++setw -g mode-keys vi  
++
++# HOW TO COPY PASTE WITH TMUX
++# 1. <prefix> [ to enter copy mode
++# 2. <space> to select text
++# 	1. o to change direction of the selection
++# 3. <enter> to copy and leave copy mode
++# 	1. <escape> to clear the selection
++# 	2. q to leave copy mode
++# 4. <prefix> ] to paste
+ 

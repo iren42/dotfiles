@@ -1,5 +1,5 @@
 " is ~/.vim/vimrc"
-# ln -sf ~/dotfiles/.vim/vimrc ~/.vim/vimrc
+" ln -sf ~/dotfiles/.vim/vimrc ~/.vim/vimrc
 " Reload vimrc with the vim command :so $(PATH)"
 "
 " Show colors"
