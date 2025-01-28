@@ -1,9 +1,19 @@
 " is ~/.vim/vimrc"
+# ln -sf ~/dotfiles/.vim/vimrc ~/.vim/vimrc
+" Reload vimrc with the vim command :so $(PATH)"
+"
 " Show colors"
 syntax on
 
+" Allow copy paste on system clipboard"
+" key shortcut is "+y
+set clipboard=unnamedplus
+
 " leader key is space"
 map <Space> <Leader>
+
+" disable matching bracket highlight"
+" let g:loaded_matchparen=1
 
 " NerdTree-like netrw :Vex"
 let g:netrw_banner=0 "hide big banner"
@@ -22,19 +32,13 @@ set ruler
 set cc=80
 highlight ColorColumn ctermbg=0
 
-" Highlight all search matches"
-set hlsearch
 " Smart case-insensitive, if one character or more is in UPPER CASE"
 " search becomes case sensitive"
-set ignorecase
-set smartcase
+" set ignorecase
+" set smartcase
 
 " always show the statusline"
 set laststatus=2
-
-" make it easier to read code"
-"autocmd InsertEnter * :set norelativenumber
-"autocmd InsertLeave * :set relativenumber
 
 " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
 set gp=git\ grep\ -n
@@ -45,10 +49,10 @@ set mouse=a
 " Indentation style"
 set autoindent smartindent
 filetype indent on
-" Tabulation is only 4 spaces wide"
-set tabstop=4
+" Tabulation is only n spaces wide"
+set tabstop=2
 " Indentation corresponds to a single tab, should be equal to tabstop"
-set shiftwidth=4
+set shiftwidth=2
 " spaces instead of tab"
 "set expandtab
 
@@ -68,34 +72,34 @@ set wildmenu
 set showcmd
 
 " Faster way to switch between buffers"
-" \b will list the available buffers and prepare :b for you"
 map <Leader>b :ls<CR>:b<Space>
 map <Leader>` :buffer #<cr>
-map <Leader>n :bn<Return>
-map <Leader>p :bp<Return>
 nnoremap te :tabedit<Space>
 
-" ESC key in insert mode remapped to kj"
-inoremap kj <esc>
+" From TPA's advanced motions P1, paste register stays unchanged "
+xnoremap <Leader>p "_dP
 
-" Automatically do 'zz' for CTRL + d/u"
-" Place the cursor to the center of the screen"
+" Place the cursor to the center of the screen for vertical movement and
+" searches"
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Split window"
 nnoremap so :split<Return><C-w>w
 nnoremap se :vsplit<Return><C-w>w
-" Move between split windows"
-nnoremap sh <C-w>h
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sj <C-w>j
 " Resize window"
-nnoremap s<Left> <C-w><
-nnoremap s<Right> <C-w>>
-nnoremap s<Up> <C-w>+
-nnoremap s<Down> <C-w>-
+"nnoremap s<Left> <C-w><
+"nnoremap s<Right> <C-w>>
+"nnoremap s<Up> <C-w>+
+"nnoremap s<Down> <C-w>-
+
+" Move between split windows"
+" nnoremap sh <C-w>h
+" nnoremap sk <C-w>k
+" nnoremap sl <C-w>l
+" nnoremap sj <C-w>j
 
 " Maximize window in a new tab"
 nnoremap sm :tab split<CR>
@@ -104,5 +108,16 @@ nnoremap sm :tab split<CR>
 command! W write
 command! Q quit
 
+" Create the tags file (may need to install ctags first)"
+command! MakeTags !ctags -R .
+
 " subtitutions made easier"
 nnoremap <leader>s :%s/
+
+" snippets"
+nnoremap ,html :-1read $HOME/.vim/snippets/.skeleton.html<CR>4jf>a
+nnoremap ,lorem :-1read $HOME/.vim/snippets/.lorem.txt<CR>
+
+" Plugins"
+" for tpope's commentary"
+filetype plugin indent on
