@@ -14,6 +14,8 @@ map <Space> <Leader>
 
 " disable matching bracket highlight"
 " let g:loaded_matchparen=1
+" matching bracket's color is blue
+hi MatchParen ctermfg=grey ctermbg=blue
 
 " NerdTree-like netrw :Vex"
 let g:netrw_banner=0 "hide big banner"
