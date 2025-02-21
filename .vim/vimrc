@@ -4,6 +4,17 @@
 "
 " Show colors"
 syntax on
+set t_Co=256
+try 
+	colorscheme PaperColor
+	set background=light "dark"
+	catch
+	try 
+		colorscheme gruvbox
+		set background=light
+		catch
+	endtry
+endtry
 
 " Allow copy paste on system clipboard"
 " key shortcut is "+y
@@ -57,6 +68,8 @@ set tabstop=2
 set shiftwidth=2
 " spaces instead of tab"
 "set expandtab
+" text wrap width
+set textwidth=79
 
 " To open buffers without saving the current file"
 set hidden
