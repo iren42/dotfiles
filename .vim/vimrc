@@ -50,8 +50,12 @@ highlight ColorColumn ctermbg=0
 " set ignorecase
 " set smartcase
 
-" always show the statusline"
+" always show the statusline, useful for filenames"
 set laststatus=2
+set statusline=%<[%n]%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+" Show filename on terminal title"
+set title
 
 " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
 set gp=git\ grep\ -n
@@ -115,8 +119,8 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Add a new line in normal mode"
-nnoremap oo o<Esc>k
-nnoremap OO O<Esc>j
+nnoremap <Leader>o o<Esc>k
+nnoremap <Leader>O O<Esc>j
 
 " Split window"
 nnoremap so :split<Return><C-w>w
