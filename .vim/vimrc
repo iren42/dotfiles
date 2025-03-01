@@ -86,6 +86,7 @@ set path+=**
 "set wildmode=list:longest,full
 set wildmode=list:longest,list:full
 set wildignore+=*/__pycache__/*,*/venv/*,*/dist/*
+set wildignore+=**/node_modules/**
 
 " In normal mode, show the pressed key in the bottom right hand corner"
 set showcmd
