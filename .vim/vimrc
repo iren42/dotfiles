@@ -76,20 +76,22 @@ set hidden
 " No swap files allowed"
 set noswapfile
 
-" Search down into subfolders"
+" Search a file in the directory of the current file or the current directory
+" recursively"
 " Provides tab completion for all file-related tasks"
 " :find *<file>"
-set path+=**
+set path=.,,**
 
 " Display all matching files when we tab complete"
-"set wildmenu
-"set wildmode=list:longest,full
 set wildmode=list:longest,list:full
 set wildignore+=*/__pycache__/*,*/venv/*,*/dist/*
 set wildignore+=**/node_modules/**
 
 " In normal mode, show the pressed key in the bottom right hand corner"
 set showcmd
+
+" List my marks"
+nnoremap <Leader>m :marks abcdefghijklmnopqrstuvwxyz<CR>:normal! `
 
 " Faster way to switch between buffers"
 map <Leader>b :ls<CR>:b<Space>
@@ -99,12 +101,22 @@ nnoremap te :tabedit<Space>
 " From TPA's advanced motions P1, paste register stays unchanged "
 xnoremap <Leader>p "_dP
 
+" subtitutions made easier"
+nnoremap <leader>s :%s/
+
+" Fuzzy search files by name"
+nnoremap <Leader>e :e **/*
+
 " Place the cursor to the center of the screen for vertical movement and
 " searches"
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" Add a new line in normal mode"
+nnoremap oo o<Esc>k
+nnoremap OO O<Esc>j
 
 " Split window"
 nnoremap so :split<Return><C-w>w
@@ -130,9 +142,6 @@ command! Q quit
 
 " Create the tags file (may need to install ctags first)"
 command! MakeTags !ctags -R .
-
-" subtitutions made easier"
-nnoremap <leader>s :%s/
 
 " snippets"
 nnoremap ,html :-1read $HOME/.vim/snippets/.skeleton.html<CR>4jf>a
