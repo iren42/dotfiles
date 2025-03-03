@@ -17,7 +17,7 @@ try
 endtry
 
 " Allow copy paste on system clipboard"
-" key shortcut is "+y
+" old method: key shortcut is "+y
 set clipboard=unnamedplus
 
 " leader key is space"
