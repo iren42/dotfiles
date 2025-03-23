@@ -2,6 +2,8 @@
 " ln -sf ~/dotfiles/.vim/vimrc ~/.vim/vimrc
 " Reload vimrc with the vim command :so $(PATH)"
 
+syntax enable
+
 " auto install vim-plug plugin manager
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -17,23 +19,32 @@ try
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-commentary'
-	Plug 'tpope/vim-vinegar'
+	Plug 'yegappan/lsp'
+	Plug 'mattn/emmet-vim'
 
 	call plug#end()
+
+" enable yegappan lsp"
+	packadd lsp
+
 catch
 endtry
 
+set background=light
+set t_Co=256
 try 
-	set t_Co=256
-	set background=light "dark"
 	colorscheme PaperColor
 catch
 	try 
-		set background=light
 		colorscheme gruvbox
 	catch
+		try
+			colorscheme morning
+		catch
+		endtry
 	endtry
 endtry
+
 
 " Allow copy paste on system clipboard"
 " old method: key shortcut is "+y
@@ -42,8 +53,9 @@ set clipboard=unnamedplus
 " leader key is space"
 map <Space> <Leader>
 
-" disable matching bracket highlight"
-" let g:loaded_matchparen=1
+" In normal mode, show the pressed key in the bottom right hand corner"
+set showcmd
+
 " matching bracket's color is blue
 hi MatchParen ctermfg=grey ctermbg=blue
 
@@ -52,67 +64,49 @@ let g:netrw_banner=0 "hide big banner"
 let g:netrw_liststyle=3 "tree view"
 let g:netrw_browse_split=4 "open the file in the previous window"
 let g:netrw_altv=1 "open the file the right"
-" let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_keepdir = 0 "sync current dir and browsing dir"
 let g:netrw_list_hide=&wildignore
 let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
 
 " Display line number for the current line"
 set number relativenumber
-" Display ruler"
 set ruler
+
 " Display a column at 80 char"
 set cc=80
 highlight ColorColumn ctermbg=0
-
-" Smart case-insensitive, if one character or more is in UPPER CASE"
-" search becomes case sensitive"
-" set ignorecase
-" set smartcase
+" text wrap width
+"set textwidth=79
 
 " always show the statusline, useful for filenames"
 set laststatus=2
 set statusline=%<[%n]%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
-" Show filename on terminal title"
-set title
-
 " Quick search with :grep <keyword>, then :copen, and :ccl to close quickfix"
 set gp=git\ grep\ -n
 
 " Allow mouse"
-set mouse=a
+set mouse=a belloff=all
 
 " Indentation style"
-set autoindent smartindent
-filetype indent on
-" Tabulation is only n spaces wide"
-set tabstop=2
-" Indentation corresponds to a single tab, should be equal to tabstop"
-set shiftwidth=2
+filetype plugin indent on
+" Tabulation is only n spaces wide ; shiftwidth should be equal to tabstop"
+set tabstop=2 shiftwidth=2
 " spaces instead of tab"
 "set expandtab
-" text wrap width
-set textwidth=79
 
 " To open buffers without saving the current file"
 set hidden
 " No swap files allowed"
 set noswapfile
 
-" Search a file in the directory of the current file or the current directory
-" recursively"
 " Provides tab completion for all file-related tasks"
 " :find *<file>"
 set path=.,,**
 
 " Display all matching files when we tab complete"
 set wildmode=list:longest,list:full
-set wildignore+=*/__pycache__/*,*/venv/*,*/dist/*
-set wildignore+=**/node_modules/**
-
-" In normal mode, show the pressed key in the bottom right hand corner"
-set showcmd
+set wildignore+=*/__pycache__/*,*/venv/*,*/dist/*,*/node_modules/*
 
 " List my marks"
 nnoremap <Leader>m :marks abcdefghijklmnopqrstuvwxyz<CR>:normal! `
@@ -120,7 +114,6 @@ nnoremap <Leader>m :marks abcdefghijklmnopqrstuvwxyz<CR>:normal! `
 " Faster way to switch between buffers"
 map <Leader>b :ls<CR>:b<Space>
 map <Leader>` :buffer #<cr>
-nnoremap te :tabedit<Space>
 
 " From TPA's advanced motions P1, paste register stays unchanged "
 xnoremap <Leader>p "_dP
