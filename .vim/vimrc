@@ -1,18 +1,27 @@
 " is ~/.vim/vimrc"
 " ln -sf ~/dotfiles/.vim/vimrc ~/.vim/vimrc
 " Reload vimrc with the vim command :so $(PATH)"
-"
-" Show colors"
-syntax on
-set t_Co=256
+
+" Plugins"
+call plug#begin()
+
+" List your plugins here
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-vinegar'
+
+call plug#end()
+
 try 
-	colorscheme PaperColor
+	set t_Co=256
 	set background=light "dark"
-	catch
+	colorscheme PaperColor
+catch
 	try 
-		colorscheme gruvbox
 		set background=light
-		catch
+		colorscheme gruvbox
+	catch
 	endtry
 endtry
 
@@ -33,7 +42,8 @@ let g:netrw_banner=0 "hide big banner"
 let g:netrw_liststyle=3 "tree view"
 let g:netrw_browse_split=4 "open the file in the previous window"
 let g:netrw_altv=1 "open the file the right"
-let g:netrw_list_hide=netrw_gitignore#Hide()
+" let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_keepdir = 0 "sync current dir and browsing dir"
 let g:netrw_list_hide=&wildignore
 let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
 
@@ -150,7 +160,3 @@ command! MakeTags !ctags -R .
 " snippets"
 nnoremap ,html :-1read $HOME/.vim/snippets/.skeleton.html<CR>4jf>a
 nnoremap ,lorem :-1read $HOME/.vim/snippets/.lorem.txt<CR>
-
-" Plugins"
-" for tpope's commentary"
-filetype plugin indent on
