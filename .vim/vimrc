@@ -19,6 +19,7 @@ try
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-surround'
 	Plug 'yegappan/lsp'
 	Plug 'mattn/emmet-vim'
 
@@ -74,9 +75,7 @@ set ruler
 
 " Display a column at 80 char"
 set cc=80
-highlight ColorColumn ctermbg=0
-" text wrap width
-"set textwidth=79
+highlight ColorColumn ctermbg=7
 
 " always show the statusline, useful for filenames"
 set laststatus=2
@@ -91,9 +90,10 @@ set mouse=a belloff=all
 " Indentation style"
 filetype plugin indent on
 " Tabulation is only n spaces wide ; shiftwidth should be equal to tabstop"
-set tabstop=2 shiftwidth=2
-" spaces instead of tab"
-"set expandtab
+set tabstop=4 shiftwidth=4
+
+"autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
+"autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
 " To open buffers without saving the current file"
 set hidden

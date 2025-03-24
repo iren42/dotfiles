@@ -15,6 +15,8 @@ catch
 endtry
 
 set keywordprg=:LspHover
-nnoremap <leader>gd <cmd>LspGotoDefinition<CR>
-nnoremap <leader>gr <cmd>LspShowReferences<CR>
-nnoremap <leader>ca <cmd>LspCodeAction<CR>
+setlocal formatexpr=lsp#lsp#FormatExpr()
+nmap gd <cmd>LspGotoDefinition<CR>
+nmap gr <cmd>LspShowReferences<CR>
+nmap ca <cmd>LspCodeAction<CR>
+nmap <leader>z <cmd>LspFormat<CR>
