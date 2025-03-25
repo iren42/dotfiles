@@ -1,6 +1,0 @@
-- download the wanted patch "myPatch.diff" in the directory ~/st/patches
-- go to the directory ~/st and apply the patch with:
-patch -p1 < patches/myPatch.diff
-
-- run "make"
-- run "sudo make clean install"
