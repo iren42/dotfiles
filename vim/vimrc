@@ -191,6 +191,12 @@ nmap ]q :cnext<CR>
 nmap [l :lprev<CR>
 nmap ]l :lnext<CR>
 
+" Search word in multiple files with :grep <pattern>"
+if executable('rg')
+		set grepprg=rg\ --vimgrep\ --smart-case
+		set grepformat^=%f:%l:%c:%m
+endif
+
 " :W and :Q behave like :w and :q respectively "
 command! W write
 command! Q quit
