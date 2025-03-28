@@ -22,6 +22,7 @@ try
 	Plug 'tpope/vim-surround'
 	Plug 'yegappan/lsp'
 	Plug 'mattn/emmet-vim'
+"	Plug 'vim-autoformat/vim-autoformat'
 
 	call plug#end()
 
@@ -132,8 +133,8 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Add a new line in normal mode"
-nnoremap <Leader>o o<Esc>k
-nnoremap <Leader>O O<Esc>j
+nnoremap ]o o<Esc>k
+nnoremap [o O<Esc>j
 
 " Split window"
 nnoremap so :split<Return><C-w>w
@@ -152,6 +153,43 @@ nnoremap se :vsplit<Return><C-w>w
 
 " Maximize window in a new tab"
 nnoremap sm :tab split<CR>
+
+" Toggle quickfix and location lists"
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
+
+nmap [q :cprev<CR>
+nmap ]q :cnext<CR>
+
+nmap [l :lprev<CR>
+nmap ]l :lnext<CR>
 
 " :W and :Q behave like :w and :q respectively "
 command! W write
