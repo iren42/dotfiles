@@ -1,3 +1,4 @@
+" is ~/.vim/plugin/start/lsp.vim"
 try
 	let lspOpts = #{
 				\ }
