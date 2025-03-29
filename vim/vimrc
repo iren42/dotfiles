@@ -122,6 +122,9 @@ xnoremap <Leader>p "_dP
 " subtitutions made easier"
 nnoremap <leader>s :%s/
 
+" delete to void register"
+noremap <Leader>d "_d
+
 " Fuzzy search files by name"
 nnoremap <Leader>e :e **/*
 
