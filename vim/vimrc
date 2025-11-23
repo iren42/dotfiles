@@ -18,11 +18,17 @@ try
 " List your plugins here
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'tpope/vim-sensible'
+	Plug 'tpope/vim-unimpaired'
+	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-commentary'
 	Plug 'tpope/vim-surround'
 	Plug 'yegappan/lsp'
 	Plug 'mattn/emmet-vim'
-"	Plug 'vim-autoformat/vim-autoformat'
+	Plug 'vim-autoformat/vim-autoformat'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
+	Plug 'tpope/vim-fugitive'
+	Plug 'rbong/vim-flog'
 
 	call plug#end()
 
@@ -93,9 +99,6 @@ filetype plugin indent on
 " Tabulation is only n spaces wide ; shiftwidth should be equal to tabstop"
 set tabstop=4 shiftwidth=4
 
-"autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
-"autocmd FileType html setlocal shiftwidth=2 tabstop=2
-
 " To open buffers without saving the current file"
 set hidden
 " No swap files allowed"
@@ -125,9 +128,6 @@ nnoremap <leader>s :%s/
 " delete to void register"
 noremap <Leader>d "_d
 
-" Fuzzy search files by name"
-nnoremap <Leader>e :e **/*
-
 " Place the cursor to the center of the screen for vertical movement and
 " searches"
 nnoremap <C-d> <C-d>zz
@@ -136,8 +136,8 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Add a new line in normal mode"
-nnoremap ]o o<Esc>k
-nnoremap [o O<Esc>j
+" nnoremap ]o o<Esc>k
+" nnoremap [o O<Esc>j
 
 " Split window"
 nnoremap so :split<Return><C-w>w
@@ -158,41 +158,16 @@ nnoremap se :vsplit<Return><C-w>w
 nnoremap sm :tab split<CR>
 
 " Toggle quickfix and location lists"
-function! GetBufferList()
-  redir =>buflist
-  silent! ls!
-  redir END
-  return buflist
-endfunction
+nmap <silent> <leader>l :lopen<CR>
+nmap <silent> <leader>L :lclose<CR>
+nmap <silent> <leader>q :copen<CR>
+nmap <silent> <leader>Q :cclose<CR>
 
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
-      return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != winnr
-    wincmd p
-  endif
-endfunction
+" nmap [q :cprev<CR>
+" nmap ]q :cnext<CR>
 
-nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
-
-nmap [q :cprev<CR>
-nmap ]q :cnext<CR>
-
-nmap [l :lprev<CR>
-nmap ]l :lnext<CR>
+" nmap [l :lprev<CR>
+" nmap ]l :lnext<CR>
 
 " Search word in multiple files with :grep <pattern>"
 if executable('rg')
